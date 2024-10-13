@@ -300,7 +300,7 @@
         </AccordionContainer>
       </div>
     </KTabsPanel>
-    <FocusTrap>
+    
       <KModal
         v-if="showDeleteConfirmation"
         :title="deleteSectionLabel$()"
@@ -315,7 +315,7 @@
           })
         }}
       </KModal>
-    </FocusTrap>
+    
   </div>
 
 </template>

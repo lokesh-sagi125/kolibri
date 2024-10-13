@@ -1,6 +1,6 @@
 <template>
 
-  <FocusTrap
+  <KFocusTrap
     @shouldFocusFirstEl="focusFirstEl"
     @shouldFocusLastEl="focusLastEl"
   >
@@ -34,7 +34,7 @@
         </KGridItem>
       </KGrid>
     </KModal>
-  </FocusTrap>
+  </KFocusTrap>
 
 </template>
 

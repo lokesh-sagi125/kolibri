@@ -6,8 +6,8 @@
     role="region"
     :class="windowIsLarge ? 'side-panel' : ''"
     :closeButtonIconType="closeButtonIcon"
-    :aria-label="learnString('filterAndSearchLabel')"
-    :ariaLabel="learnString('filterAndSearchLabel')"
+    :aria-label="filterAndSearchLabel$()"
+    :ariaLabel="filterAndSearchLabel$()"
     :style="
       windowIsLarge
         ? {
@@ -126,15 +126,23 @@
 
 <script>
 
+  //
+  // Usage of injectBaseSearch() in this component requires ancestor's use of useSearch
+  // Examples of it can be found in the following components:
+  // - kolibri/plugins/learn/assets/src/views/LibraryPage/index.vue
+  //   in https://github.com/learningequality/kolibri/blob/develop/kolibri/plugins/learn/assets/src/views/LibraryPage/index.vue#L238-L251
+  // - kolibri/plugins/learn/assets/src/views/TopicsPage/index.vue
+  //   in https://github.com/learningequality/kolibri/blob/develop/kolibri/plugins/learn/assets/src/views/TopicsPage/index.vue#L366-L378
+  //
+
   import { NoCategories } from 'kolibri.coreVue.vuex.constants';
   import commonCoreStrings from 'kolibri.coreVue.mixins.commonCoreStrings';
+  import { searchAndFilterStrings } from 'kolibri-common/strings/searchAndFilterStrings';
   import useKResponsiveWindow from 'kolibri-design-system/lib/composables/useKResponsiveWindow';
   import { ref } from 'kolibri.lib.vueCompositionApi';
   import { injectBaseSearch } from 'kolibri-common/composables/useBaseSearch';
   import SearchBox from '../SearchBox';
   import SidePanelModal from '../SidePanelModal';
-  import commonLearnStrings from '../commonLearnStrings';
-  import useContentLink from '../../composables/useContentLink';
   import ActivityButtonsGroup from './ActivityButtonsGroup';
   import CategorySearchModal from './CategorySearchModal';
   import SelectGroup from './SelectGroup';
@@ -148,10 +156,9 @@
       CategorySearchModal,
       SidePanelModal,
     },
-    mixins: [commonLearnStrings, commonCoreStrings],
+    mixins: [commonCoreStrings],
     setup() {
       const { windowIsLarge } = useKResponsiveWindow();
-      const { genContentLinkBackLinkCurrentPage } = useContentLink();
       const {
         availableLibraryCategories,
         availableResourcesNeeded,
@@ -159,11 +166,12 @@
         activeSearchTerms,
       } = injectBaseSearch();
       const currentCategory = ref(null);
+      const { filterAndSearchLabel$ } = searchAndFilterStrings;
       return {
+        filterAndSearchLabel$,
         availableLibraryCategories,
         availableResourcesNeeded,
         currentCategory,
-        genContentLinkBackLinkCurrentPage,
         searchableLabels,
         activeSearchTerms,
         windowIsLarge,

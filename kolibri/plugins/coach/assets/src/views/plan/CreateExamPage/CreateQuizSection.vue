@@ -300,22 +300,21 @@
         </AccordionContainer>
       </div>
     </KTabsPanel>
-    
-      <KModal
-        v-if="showDeleteConfirmation"
-        :title="deleteSectionLabel$()"
-        :submitText="coreString('deleteAction')"
-        :cancelText="coreString('cancelAction')"
-        @cancel="showDeleteConfirmation = false"
-        @submit="handleConfirmDelete"
-      >
-        {{
-          deleteConfirmation$({
-            section_title: displaySectionTitle(activeSection, activeSectionIndex),
-          })
-        }}
-      </KModal>
-    
+
+    <KModal
+      v-if="showDeleteConfirmation"
+      :title="deleteSectionLabel$()"
+      :submitText="coreString('deleteAction')"
+      :cancelText="coreString('cancelAction')"
+      @cancel="showDeleteConfirmation = false"
+      @submit="handleConfirmDelete"
+    >
+      {{
+        deleteConfirmation$({
+          section_title: displaySectionTitle(activeSection, activeSectionIndex),
+        })
+      }}
+    </KModal>
   </div>
 
 </template>
